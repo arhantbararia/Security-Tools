@@ -1,22 +1,24 @@
-import socket
+from yaml import MarkedYAMLError
+from Server.connection import ServerConnection
+from Server.handleConnection import handleConnection
+
+
+
 
 SERVER_IP = "192.168.56.1"
 SERVER_PORT = 8080
 
 
 if __name__ == "__main__":
-	sock = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
-	address = (SERVER_IP , SERVER_PORT)
-	sock.bind(address)
-	
-	sock.listen(1)	
+	my_socket = ServerConnection()
+	print("socket created")
+	my_socket.CreateConnection(SERVER_IP , 8080)
+	print("socket binded with address")
 
-	print("[+] Waiting for incomming connection: ", SERVER_PORT)
-	client_sock, client_add = sock.accept()
-	print("[+] Connection Established:", client_add)
-	
-	msg = "This is Response from server"
-	client_sock.send(msg.encode())
+	my_socket.Listen()
+	print("socket listening for active connections")
+	my_socket.AcceptConnection()
 	
 
-	client_sock.close()
+	handleConnection(my_socket)
+
