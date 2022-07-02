@@ -1,7 +1,7 @@
 from ctypes import addressof
 import socket
 
-
+DELIMITER = "<EOF>"
 class clientConnection:
     def __init__(self):
         self.socket = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
@@ -19,6 +19,23 @@ class clientConnection:
         self.data = recd.decode("UTF-8")
         return self.data
     
+    def recieve_file(self):
+        filename = self.recieve_data()
+        print("Downloading: " , filename)
+        with open(filename , "wb") as file:
+            while True:
+                chunk = self.socket.recv(4096)
+
+                if chunk.endswith(DELIMITER.encode()):
+                    chunk = chunk[: -len(DELIMITER)]
+                    file.write(chunk)
+                    break
+
+                file.write(chunk)
+            print("[+] Transfer completed")
+
+
+
     def close(self):
         self.socket.close()
     

