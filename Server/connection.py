@@ -1,7 +1,9 @@
 from curses.ascii import DEL
 import socket
+import zipfile
 
 DELIMITER = "<EOF>"
+
 class ServerConnection:
     def __init__(self):
         #Creates a socket for server to listen to
@@ -30,7 +32,7 @@ class ServerConnection:
         rcdData = rcdData.decode("UTF-8")
         return rcdData
     
-    def send_file(self, file_path):
+    def upload_file(self, file_path):
 
         with open(file_path , 'rb') as file:
             chunk = file.read(4096)
@@ -44,4 +46,29 @@ class ServerConnection:
 
             print("Transfer complete")
 
-    
+    def download_file(self):
+        print("waiting for the files...")
+
+        filename  = self.recieve_data()
+        print("Downloading " , filename)
+
+        with open(filename , "wb") as file:
+            while True:
+                chunk = self.client_sock.recv(4096)
+
+                if chunk.endswith(DELIMITER.encode()):
+                    chunk = chunk[: -len(DELIMITER)]
+                    file.write(chunk)
+                    break
+
+                file.write(chunk)
+            print("[+] Transfer complete")
+            print("Recieve file contents: \n")
+
+            with zipfile.ZipFile(filename , "r") as zip:
+                zip.printdir()
+
+
+
+
+

