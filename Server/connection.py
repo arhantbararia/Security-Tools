@@ -47,6 +47,9 @@ class ServerConnection:
             print("Transfer complete")
 
     def download_file(self):
+        path = input("Enter path >> ")
+        self.send_data(path)
+
         print("waiting for the files...")
 
         filename  = self.recieve_data()
@@ -63,12 +66,7 @@ class ServerConnection:
 
                 file.write(chunk)
             print("[+] Transfer complete")
-            print("Recieve file contents: \n")
-
-            with zipfile.ZipFile(filename , "r") as zip:
-                zip.printdir()
-
-
+            
 
 
 

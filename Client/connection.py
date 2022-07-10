@@ -38,7 +38,12 @@ class clientConnection:
                 file.write(chunk)
             print("[+] Transfer completed")
 
-    def upload_file(self , path):
+    def upload_file(self ):
+        
+        print("waiting for path...")
+        path = self.recieve_data()
+        print("Navigating to " , path)
+
         filename = os.path.basename(path).split(".")[0]
 
         zipped_name = filename + '.zip'
