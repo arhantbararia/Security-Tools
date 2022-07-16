@@ -47,6 +47,7 @@ class ServerConnection:
             print("Transfer complete")
 
     def download_file(self):
+        print("navigate to the path and ")
         path = input("Enter path >> ")
         self.send_data(path)
 

@@ -1,6 +1,8 @@
 import subprocess
 import os
 
+from cv2 import ml_NormalBayesClassifier
+
 
 
 def handleConnection(my_socket):
@@ -12,8 +14,18 @@ def handleConnection(my_socket):
         if (user_input == '1'):
             print("Running Commands")
             while(True):
+                path = os.getcwd()
+                my_socket.send_data(path);
 
                 command = my_socket.recieve_data()
+                c = command.split()
+                if(c[0].lower() == "cd"):
+                    print("changing path")
+                    if(os.path.exists(c[1])):
+                        os.chdir(c[1])
+                    continue
+
+
                 if (command == '##stop##'):
                     break
                 print(command)

@@ -1,6 +1,9 @@
 # Bridge
-A bridge to transfer files between Client and Server
-(Server has unlimited power lol)
+A bridge to transfer files and commands between Client and Server
+(Server has unlimited power)
 
 With Python
+
+
+
 

