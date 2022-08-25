@@ -46,17 +46,12 @@ class ServerConnection:
 
             print("Transfer complete")
 
-    def download_file(self):
-        print("navigate to the path and ")
-        path = input("Enter path >> ")
-        self.send_data(path)
-
-        print("waiting for the files...")
-
-        filename  = self.recieve_data()
+    def download_file(self, filename):
+        
         print("Downloading " , filename)
 
         with open(filename , "wb") as file:
+
             while True:
                 chunk = self.client_sock.recv(4096)
 

