@@ -14,14 +14,14 @@ Get remote access to the terminal of the client machine.
 
 For now, it supports only Windows machines as the clients, and any machine (Windows/Mac/Linux) can be used to play as server.
 
-![Untitled](Remote%20Access%20Tool%203efe9d508fc04478894b5c9881d6ab59/Untitled.png)
+![Untitled 1](https://user-images.githubusercontent.com/61796574/188238140-d24ec980-630b-4c09-8d62-d0a8ba6d7d68.png)
 
 When you run the program, the CLI provided is pretty self-explanatory.
 Here, I have used an Ubuntu machine to run as server. And my target machine is a Windows machine.
 
 ### 1. Running commands
 
-![Untitled](Remote%20Access%20Tool%203efe9d508fc04478894b5c9881d6ab59/Untitled%201.png)
+![Untitled 2](https://user-images.githubusercontent.com/61796574/188238210-140e38c0-0bd0-4b87-b1bb-77e2236e5497.png)
 
 The current working directory of client machine is visible. And an option after “>>” to run the commands.
 
@@ -29,7 +29,7 @@ Here, I try to run “””systeminfo””” which is a Windows PowerShell co
 
 ### 2. Upload file to client machine.
 
-![Untitled](Remote%20Access%20Tool%203efe9d508fc04478894b5c9881d6ab59/Untitled%202.png)
+![Untitled](https://user-images.githubusercontent.com/61796574/188238241-034ace4e-a99e-4b39-9063-1b0de6b8f9f9.png)
 
 After entering the path to the file which is to be uploaded to client. It can be seen that the file “poster_event.pdf” is present in the current working directory of the client.
 
